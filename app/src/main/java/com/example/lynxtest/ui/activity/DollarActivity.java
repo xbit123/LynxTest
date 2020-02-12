@@ -67,6 +67,13 @@ public class DollarActivity extends AppCompatActivity {
         ivSpinner.setVisibility(View.INVISIBLE);
     }
 
+    private void showError(String msg) {
+        runOnUiThread(() -> {
+            hideSpinner();
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        });
+    }
+
     private void query() {
         final Intent intent = new Intent(this, WebViewActivity.class);
         Request request = new Request.Builder().url(URL).build();
@@ -75,18 +82,14 @@ public class DollarActivity extends AppCompatActivity {
         OkHttpSingleton.getInstance().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                runOnUiThread(() -> hideSpinner());
+                showError("Connection error");
                 e.printStackTrace();
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                runOnUiThread(() -> hideSpinner());
-                if (!response.isSuccessful()) {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(),
-                            "Unexpected code " + response,
-                            Toast.LENGTH_LONG).show());
-                }
+                if (!response.isSuccessful())
+                    showError("Unexpected code " + response);
 
                 try {
                     String in = response.body().string();
@@ -95,17 +98,11 @@ public class DollarActivity extends AppCompatActivity {
                     intent.putExtra(CURRENT_USD, value);
                     startActivity(intent);
                 } catch (NullPointerException e) {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(),
-                            "Null pointer exception: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show());
+                    showError("Null pointer exception " + e.getMessage());
                 } catch (JSONException e) {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show());
+                    showError("Json parsing error: " + e.getMessage());
                 } catch (IOException e) {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(),
-                            "IO exception" + e.getMessage(),
-                            Toast.LENGTH_LONG).show());
+                    showError("IO exception" + e.getMessage());
                 }
             }
         });
