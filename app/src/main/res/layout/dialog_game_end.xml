@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_death_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@string/game_end_background"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_again"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_death_background" />
+
+    <ImageView
+        android:id="@+id/iv_again"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:contentDescription="@string/button_again"
+        android:src="@drawable/ic_again_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.603"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_end"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.6" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_game_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/EndGameFont"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_again"
+        style="@style/GameFont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/restart"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_again"
+        app:layout_constraintEnd_toEndOf="@+id/iv_again"
+        app:layout_constraintStart_toStartOf="@+id/iv_again"
+        app:layout_constraintTop_toTopOf="@+id/iv_again" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LynxTest</string>
+    <string name="monkey_treasure">Monkey\nTreasure</string>
+    <string name="webview">WebView</string>
+    <string name="death">Ты проиграл!\nСыграем еще раз?</string>
+    <string name="win">Ты помог мартышке\nнайти золото!\nСыграем еще раз?</string>
+    <string name="restart">Заново</string>
+    <string name="current_usd">Текущее значение доллара США:\n%1$.2f</string>
+    <string name="current_usd_unspecified">Текущее значение доллара США:\nнеизвестно</string>
+    <string name="compare">Сравнить</string>
+
+    <string name="monkey">Обезьянка</string>
+    <string name="chest">Сундук</string>
+    <string name="progress">Пожалуйста, подождите</string>
+    <string name="menu1">Игра Monkey Treasure</string>
+    <string name="menu2">WebView</string>
+    <string name="game_end_background">Игра окончена</string>
+    <string name="button_again">Играть снова</string>
+</resources>
