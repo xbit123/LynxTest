@@ -17,7 +17,7 @@ import com.example.lynxtest.ui.viewmodel.DollarViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.lynxtest.utils.AppConstants.CURRENT_USD;
+import static com.example.lynxtest.utils.AppConstants.CURRENT_USD_TAG;
 
 public class DollarActivity extends AppCompatActivity {
     @BindView(R.id.iv_spinner)
@@ -39,11 +39,19 @@ public class DollarActivity extends AppCompatActivity {
                     showSpinner();
                     break;
                 case ERROR:
-                    showError(doubleStateData.getError().getMessage());
+                    if (doubleStateData.getError() == null) break;
+                    switch (doubleStateData.getError()) {
+                        case DOWNLOAD_ERROR:
+                            showError(getString(R.string.error_download));
+                            break;
+                        case JSON_ERROR:
+                            showError(getString(R.string.error_json));
+                            break;
+                    }
                     break;
                 case SUCCESS:
                     Intent intent = new Intent(this, WebViewActivity.class);
-                    intent.putExtra(CURRENT_USD, doubleStateData.getData());
+                    intent.putExtra(CURRENT_USD_TAG, doubleStateData.getData());
                     startActivity(intent);
                     break;
             }

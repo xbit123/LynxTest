@@ -8,6 +8,8 @@
     <string name="current_usd">Текущее значение доллара США:\n%1$.2f</string>
     <string name="current_usd_unspecified">Текущее значение доллара США:\nнеизвестно</string>
     <string name="compare">Сравнить</string>
+    <string name="error_download">Ошибка при загрузке json</string>
+    <string name="error_json">Ошибка при разборе ответа</string>
 
     <string name="monkey">Обезьянка</string>
     <string name="chest">Сундук</string>

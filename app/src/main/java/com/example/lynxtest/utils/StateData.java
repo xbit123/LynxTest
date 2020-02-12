@@ -11,37 +11,32 @@ public class StateData<T> {
     private T data;
 
     @Nullable
-    private Throwable error;
+    private ErrorType error;
 
-    public StateData() {
+    StateData() {
         this.status = DataStatus.CREATED;
         this.data = null;
         this.error = null;
     }
 
-    public StateData<T> loading() {
+    StateData<T> loading() {
         this.status = DataStatus.LOADING;
         this.data = null;
         this.error = null;
         return this;
     }
 
-    public StateData<T> success(@NonNull T data) {
+    StateData<T> success(@NonNull T data) {
         this.status = DataStatus.SUCCESS;
         this.data = data;
         this.error = null;
         return this;
     }
 
-    public StateData<T> error(@NonNull Throwable error) {
+    StateData<T> error(@NonNull ErrorType error) {
         this.status = DataStatus.ERROR;
         this.data = null;
         this.error = error;
-        return this;
-    }
-
-    public StateData<T> complete() {
-        this.status = DataStatus.COMPLETE;
         return this;
     }
 
@@ -56,7 +51,7 @@ public class StateData<T> {
     }
 
     @Nullable
-    public Throwable getError() {
+    public ErrorType getError() {
         return error;
     }
 
@@ -65,6 +60,10 @@ public class StateData<T> {
         SUCCESS,
         ERROR,
         LOADING,
-        COMPLETE
+    }
+
+    public enum ErrorType {
+        DOWNLOAD_ERROR,
+        JSON_ERROR
     }
 }

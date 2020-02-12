@@ -3,6 +3,7 @@ package com.example.lynxtest.ui.viewmodel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.lynxtest.network.OkHttpSingleton;
+import com.example.lynxtest.utils.StateData;
 import com.example.lynxtest.utils.StateLiveData;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,13 +40,13 @@ public class DollarViewModel extends ViewModel {
         OkHttpSingleton.getInstance().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                usdLD.postError(new Throwable("Connection error"));
+                usdLD.postError(StateData.ErrorType.DOWNLOAD_ERROR);
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (!response.isSuccessful())
-                    usdLD.postError(new Throwable("Unexpected code " + response));
+                    usdLD.postError(StateData.ErrorType.DOWNLOAD_ERROR);
 
                 try {
                     String in = response.body().string();
@@ -56,7 +57,7 @@ public class DollarViewModel extends ViewModel {
                             .getDouble(VALUE);
                     usdLD.postSuccess(value);
                 } catch (Exception e) {
-                    usdLD.postError(new Throwable("Error parsing JSON"));
+                    usdLD.postError(StateData.ErrorType.JSON_ERROR);
                 }
             }
         });

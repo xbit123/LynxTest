@@ -14,7 +14,7 @@ import com.example.lynxtest.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.lynxtest.utils.AppConstants.CURRENT_USD;
+import static com.example.lynxtest.utils.AppConstants.CURRENT_USD_TAG;
 
 public class WebViewActivity extends AppCompatActivity {
     private static final String BANKIRU = "https://www.banki.ru/products/currency/cash/moskva/";
@@ -33,7 +33,7 @@ public class WebViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         try {
-            Double value = getIntent().getExtras().getDouble(CURRENT_USD);
+            Double value = getIntent().getExtras().getDouble(CURRENT_USD_TAG);
             tvCurrentUsd.setText(getString(R.string.current_usd, value));
         }
         catch (NullPointerException e) {
