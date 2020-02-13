@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.lynxtest.game.GameConstants;
 import com.example.lynxtest.game.GameAdapter;
@@ -16,7 +17,6 @@ import com.example.lynxtest.game.RC;
 public class GameView extends View {
     private OnCellClickListener onCellClickListener;
     private GameAdapter gameAdapter;
-    private Point desiredWH;
     private final Rect destRect = new Rect();
 
     public GameView(Context context, AttributeSet attrs) {
@@ -42,8 +42,7 @@ public class GameView extends View {
         if (eventAction == MotionEvent.ACTION_DOWN) {
             int x = (int)event.getX();
             int y = (int)event.getY();
-            if (x < desiredWH.x && y < desiredWH.y)
-                onCellClickListener.onCellClick(gameAdapter.coordsToCell(x, y));
+            onCellClickListener.onCellClick(gameAdapter.coordsToCell(x, y));
         }
 
         invalidate();
@@ -55,13 +54,14 @@ public class GameView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int specWidth = MeasureSpec.getSize(widthMeasureSpec);
         int specHeight = MeasureSpec.getSize(heightMeasureSpec);
-        int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
-        int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
 
-        desiredWH = gameAdapter.getDesiredWH(specWidth, specHeight);
-        if (modeWidth != MeasureSpec.EXACTLY && modeHeight != MeasureSpec.EXACTLY) {
-            setMeasuredDimension(desiredWH.x, desiredWH.y);
-        } else setMeasuredDimension(specWidth, specHeight);
+        Point desiredWH = gameAdapter.getDesiredWH(specWidth, specHeight);
+        setMeasuredDimension(desiredWH.x, desiredWH.y);
+
+        ViewGroup.LayoutParams lp = getLayoutParams();
+        lp.width = desiredWH.x;
+        lp.height = desiredWH.y;
+        setLayoutParams(lp);
     }
 
     @Override
